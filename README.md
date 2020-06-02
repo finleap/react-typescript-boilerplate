@@ -21,8 +21,14 @@ To create a production build:
 yarn build
 ```
 
-Environment specific values can be set in `config/.env[local/production]` and used in code like
+Environment specific values can be set in `config/.env[local|production]` and used in code like
 
 ```
 const { CONFIG_VALUE } = process.env
+```
+
+For automatic fixing of linting problems, run
+
+```
+yarn lint:apply
 ```
