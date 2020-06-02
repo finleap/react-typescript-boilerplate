@@ -122,6 +122,7 @@ const config = {
   devServer: {
     compress: true,
     contentBase: ["./src/public"],
+    liveReload: true,
     historyApiFallback: true,
     stats: {
       assets: false,

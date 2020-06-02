@@ -1,8 +1,10 @@
 import React, { ReactNode } from "react";
 
+import Demo from "./components/Demo";
+
 class App extends React.Component {
   render = (): ReactNode => {
-    return <span>Welcome to React Typescript Boilerplate</span>;
+    return <Demo />;
   };
 }
 
