@@ -6,8 +6,8 @@
   "author": "andreas.jantschnig@finleap.com",
   "license": "MIT",
   "scripts": {
-    "start": "env NODE_ENV=local webpack-dev-server --inline --progress --port 4040",
-    "build": "env NODE_ENV=production webpack --profile",
+    "start": "env NODE_ENV=local webpack-dev-server --progress --port 4040",
+    "build": "env NODE_ENV=production webpack --progress",
     "lint": "eslint --ext .ts,.tsx,.js,.tsx src",
     "lint:apply": "eslint --ext .ts,.tsx,.js,.tsx src --fix"
   },
