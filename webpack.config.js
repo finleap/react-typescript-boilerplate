@@ -124,17 +124,7 @@ const config = {
     compress: true,
     contentBase: path.resolve(__dirname, "public"),
     historyApiFallback: true,
-    stats: {
-      assets: false,
-      cached: false,
-      cachedAssets: false,
-      children: false,
-      chunkModules: false,
-      chunkOrigins: false,
-      performance: false,
-      reason: false,
-      source: false,
-    },
+    stats: "minimal",
   },
 };
 
