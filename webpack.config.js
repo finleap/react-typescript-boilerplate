@@ -22,7 +22,7 @@ const config = {
   entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].[contenthash].js",
+    filename: "[name].[hash].js",
   },
   target: "web",
   devtool: webpackDevtool,
@@ -120,9 +120,9 @@ const config = {
     nodeEnv: false,
   },
   devServer: {
+    hot: true,
     compress: true,
-    contentBase: ["./src/public"],
-    liveReload: true,
+    contentBase: path.resolve(__dirname, "public"),
     historyApiFallback: true,
     stats: {
       assets: false,
@@ -135,12 +135,12 @@ const config = {
       reason: false,
       source: false,
     },
-    watchContentBase: true,
   },
 };
 
 if (localEnvironment) {
   config.plugins.push(new ForkTsCheckerWebpackPlugin());
+  config.plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
 if (isOptimized) {
