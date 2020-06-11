@@ -8,8 +8,8 @@
   "scripts": {
     "start": "env NODE_ENV=local webpack-dev-server --progress --port 4040",
     "build": "env NODE_ENV=production webpack --progress",
-    "lint": "eslint --ext .ts,.tsx,.js,.tsx src",
-    "lint:apply": "eslint --ext .ts,.tsx,.js,.tsx src --fix"
+    "lint": "eslint --ext .ts,.tsx,.js,.jsx src",
+    "lint:apply": "eslint --ext .ts,.tsx,.js,.jsx src --fix"
   },
   "dependencies": {
     "core-js": "^3.6.5",
