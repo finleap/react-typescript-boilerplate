@@ -1,8 +1,8 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 
 class Demo extends React.PureComponent {
-  render = (): ReactNode => {
+  render = (): React.ReactElement => {
     return <StyledSpan>Welcome to React Typescript Boilerplate</StyledSpan>;
   };
 }

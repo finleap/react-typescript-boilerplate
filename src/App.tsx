@@ -1,9 +1,9 @@
-import React, { ReactNode } from "react";
+import React from "react";
 
 import Demo from "./components/Demo";
 
 class App extends React.Component {
-  render = (): ReactNode => {
+  render = (): React.ReactElement => {
     return <Demo />;
   };
 }
