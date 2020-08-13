@@ -32,7 +32,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js?x)$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: [
           {
@@ -41,7 +41,7 @@ const config = {
         ],
       },
       {
-        test: /\.(ts?x)$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         use: [
           {
@@ -90,7 +90,7 @@ const config = {
         ],
       },
       {
-        test: /\.(ts?x|js?x)?$/,
+        test: /\.(ts|tsx|js|jsx)?$/,
         exclude: /node_modules/,
         enforce: "pre",
         use: [
