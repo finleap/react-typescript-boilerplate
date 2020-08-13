@@ -19,7 +19,7 @@ const webpackDevtool = isOptimized ? "hidden-source-map" : "cheap-eval-source-ma
 const config = {
   mode: webpackMode,
   watch: webpackWatch,
-  entry: "./src/index.tsx",
+  entry: path.resolve(__dirname, "src"),
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].[hash].js",
@@ -27,29 +27,16 @@ const config = {
   target: "web",
   devtool: webpackDevtool,
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"],
+    extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: [
           {
             loader: "babel-loader",
-          },
-        ],
-      },
-      {
-        test: /\.(ts|tsx)$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: "ts-loader",
-            options: {
-              onlyCompileBundledFiles: true,
-              transpileOnly: true,
-            },
           },
         ],
       },
