@@ -22,12 +22,13 @@ const config = {
   entry: path.resolve(__dirname, "src"),
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].[hash].js",
+    filename: "[name].[contenthash].js",
+    chunkFilename: "[name].[contenthash].js",
   },
   target: "web",
   devtool: webpackDevtool,
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+    extensions: [".js", ".jsx", ".ts", ".tsx", ".css", ".json", ".md", "woff", "woff2", "ttf"],
   },
   module: {
     rules: [
@@ -42,7 +43,6 @@ const config = {
       },
       {
         test: /\.css$/,
-        exclude: /node_modules/,
         use: [{ loader: "style-loader" }, { loader: "css-loader" }],
       },
       {
@@ -72,6 +72,34 @@ const config = {
               gifsicle: {
                 interlaced: false,
               },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.md$/i,
+        use: [
+          {
+            loader: "raw-loader",
+          },
+          {
+            loader: "string-replace-loader",
+            options: {
+              search: "(---(.|\n)*---)",
+              replace: "",
+              flags: "g",
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(woff(2)?|eot|ttf|otf)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[contenthash].[ext]",
+              outputPath: "fonts",
             },
           },
         ],
@@ -128,16 +156,11 @@ if (isOptimized) {
   };
   config.optimization = {
     ...config.optimization,
+    usedExports: true,
     runtimeChunk: "single",
     moduleIds: "hashed",
     splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: "vendors",
-          chunks: "all",
-        },
-      },
+      chunks: "all",
     },
     minimizer: [
       new TerserPlugin({
