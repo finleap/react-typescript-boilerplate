@@ -22,8 +22,8 @@ const config = {
   entry: path.resolve(__dirname, "src"),
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].[contenthash].js",
-    chunkFilename: "[name].[contenthash].js",
+    filename: `[name].[${webpackMode === "production" ? "contenthash" : "hash"}].js`,
+    chunkFilename: `[name].[${webpackMode === "production" ? "contenthash" : "hash"}].js`,
   },
   target: "web",
   devtool: webpackDevtool,
