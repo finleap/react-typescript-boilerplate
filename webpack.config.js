@@ -121,6 +121,7 @@ const config = {
       emitWarning: true,
       emitError: true,
       extensions: ["ts", "tsx", "js", "jsx"],
+      context: "./src",
     }),
   ],
   optimization: {
