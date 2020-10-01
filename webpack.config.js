@@ -6,6 +6,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 const { NODE_ENV, OPTIMIZED_BUILD } = process.env;
 const webpackDotEnvPath = `./config/.env.${NODE_ENV}`;
@@ -104,20 +105,6 @@ const config = {
           },
         ],
       },
-      {
-        test: /\.(ts|tsx|js|jsx)?$/,
-        exclude: /node_modules/,
-        enforce: "pre",
-        use: [
-          {
-            loader: "eslint-loader",
-            options: {
-              emitWarning: true,
-              emitError: true,
-            },
-          },
-        ],
-      },
     ],
   },
   plugins: [
@@ -130,6 +117,11 @@ const config = {
       "process.env.NODE_ENV": JSON.stringify(NODE_ENV),
     }),
     new CleanWebpackPlugin(),
+    new ESLintPlugin({
+      emitWarning: true,
+      emitError: true,
+      extensions: ["ts", "tsx", "js", "jsx"],
+    }),
   ],
   optimization: {
     nodeEnv: false,
