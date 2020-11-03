@@ -1,4 +1,3 @@
-import "core-js";
 import "raf/polyfill";
 
 import React from "react";
