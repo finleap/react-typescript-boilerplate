@@ -3,7 +3,9 @@
     [
       "@babel/preset-env",
       {
-        "modules": false
+        "modules": false,
+        "corejs": 3,
+        "useBuiltIns": "usage"
       }
     ],
     "@babel/preset-typescript",
@@ -13,6 +15,13 @@
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-transform-regenerator",
     "@babel/plugin-transform-runtime",
-    "@babel/plugin-syntax-dynamic-import"
+    "@babel/plugin-syntax-dynamic-import",
+    [
+      "babel-plugin-styled-components",
+      {
+        "pure": true
+      }
+    ],
+    "polished"
   ]
 }

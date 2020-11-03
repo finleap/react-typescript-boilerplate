@@ -46,6 +46,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-is": "^16.13.1",
+    "responsive-loader": "^2.2.0",
     "string-replace-loader": "^2.3.0",
     "style-loader": "^1.2.1",
     "styled-components": "^5.1.1",

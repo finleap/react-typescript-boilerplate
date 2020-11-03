@@ -20,16 +20,20 @@ const webpackDevtool = isOptimized ? "hidden-source-map" : "cheap-eval-source-ma
 const config = {
   mode: webpackMode,
   watch: webpackWatch,
+  watchOptions: {
+    ignored: /node_modules/,
+  },
   entry: path.resolve(__dirname, "src"),
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: `[name].[${webpackMode === "production" ? "contenthash" : "hash"}].js`,
     chunkFilename: `[name].[${webpackMode === "production" ? "contenthash" : "hash"}].js`,
+    publicPath: "/",
   },
   target: "web",
   devtool: webpackDevtool,
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx", ".css", ".json", ".md", "woff", "woff2", "ttf"],
+    extensions: [".js", ".jsx", ".ts", ".tsx", ".css", ".json", "woff", "woff2", "ttf"],
   },
   module: {
     rules: [
@@ -47,8 +51,21 @@ const config = {
         use: [{ loader: "style-loader" }, { loader: "css-loader" }],
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/,
-        exclude: /node_modules/,
+        test: /\.(jpe?g|png|webp|gif|svg)$/i,
+        resourceQuery: /format|responsive/,
+        use: [
+          {
+            loader: "responsive-loader",
+            options: {
+              outputPath: "images",
+              adapter: require("responsive-loader/sharp"),
+              esModule: true,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(jpe?g|png|webp|gif|svg)$/i,
         use: [
           {
             loader: "file-loader",
@@ -60,8 +77,7 @@ const config = {
             loader: "image-webpack-loader",
             options: {
               mozjpeg: {
-                progressive: true,
-                quality: 65,
+                enabled: false,
               },
               optipng: {
                 enabled: false,
@@ -78,28 +94,12 @@ const config = {
         ],
       },
       {
-        test: /\.md$/i,
-        use: [
-          {
-            loader: "raw-loader",
-          },
-          {
-            loader: "string-replace-loader",
-            options: {
-              search: "(---(.|\n)*---)",
-              replace: "",
-              flags: "g",
-            },
-          },
-        ],
-      },
-      {
         test: /\.(woff(2)?|eot|ttf|otf)$/,
         use: [
           {
             loader: "file-loader",
             options: {
-              name: "[name].[contenthash].[ext]",
+              name: `[name].[${webpackMode === "production" ? "contenthash" : "hash"}].[ext]`,
               outputPath: "fonts",
             },
           },
@@ -120,8 +120,10 @@ const config = {
     new ESLintPlugin({
       emitWarning: true,
       emitError: true,
+      failOnError: true,
       extensions: ["ts", "tsx", "js", "jsx"],
       context: "./src",
+      lintDirtyModulesOnly: true,
     }),
   ],
   optimization: {
